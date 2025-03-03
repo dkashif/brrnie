@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -80,12 +81,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DATABASE_NAME'),
-        'USER': os.getenv('DATABASE_USER'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-        'HOST': os.getenv('DATABASE_HOST'),
-        'PORT': os.getenv('DATABASE_PORT', '5432'),
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL')
+        )
     }
 }
 
@@ -114,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Phoenix'
 
 USE_I18N = True
 
@@ -130,3 +128,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ================================
+# CELERY CONFIGURATION
+# ================================
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # Redis URL (Make sure Redis is running)
+CELERY_ACCEPT_CONTENT = ['json']  # Accept JSON messages
+CELERY_TASK_SERIALIZER = 'json'   # Serialize tasks as JSON
+CELERY_TIMEZONE = TIME_ZONE  # Set Celery's timezone (match Django's TIME_ZONE)
