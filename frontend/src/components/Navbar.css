@@ -1,0 +1,43 @@
+*{
+    box-sizing: border-box;
+
+}
+
+body{
+    margin: 0;
+  
+}
+
+
+.nav{
+    background: linear-gradient(90deg, #034b67, #01364a);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure the navbar is above other content */
+    padding: 10px 20px; /* Add padding to ensure content is not cut off */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.nav li {
+    margin-left: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: aliceblue;
+    font-family:cursive;
+    padding: 5px;
+    display: block;
+}
