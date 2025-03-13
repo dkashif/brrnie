@@ -10,9 +10,8 @@ function App() {
         <div className="navbar">
             <Navbar />
         </div>
-        <p>
-          Brrnie
-        </p>
+        <p className="brrnie-title">Brrnie</p>
+
         
       <div className="fridge">
         <img src={fridgy} alt="fridge"  className="fridge-image" />
