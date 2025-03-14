@@ -1,22 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Navbar from "./components/Navbar";
+import Button from "./components/Button"; // Import the button component
+import fridgy from "./fridgy2.png"
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="navbar">
+            <Navbar />
+        </div>
+        <p className="brrnie-title">Brrnie</p>
+
+        
+      <div className="fridge">
+        <img src={fridgy} alt="fridge"  className="fridge-image" />
+      </div>
+      <div>
+      <Button onClick={() => alert("Button clicked!")}>Open Fridge</Button>
+      </div>
+          More shit incoming
+        
       </header>
     </div>
   );
