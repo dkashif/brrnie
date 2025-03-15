@@ -23,7 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-venv
+frontend/.env
+backend/.env
+
+venv/
+
 db.sqlite3
 *.sqlite3
 
