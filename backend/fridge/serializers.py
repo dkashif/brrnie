@@ -30,7 +30,8 @@ class FridgeItemSerializer(serializers.ModelSerializer):
     def validate_quantity(self, value):
         if value < 0:
             raise serializers.ValidationError("Quantity cannot be negative.")
-        return value
+        if value == 0:
+            raise serializers.ValidationError("Quantity cannot be zero.")
     
     def validate_expiration_date(self, value):
         if not value:
