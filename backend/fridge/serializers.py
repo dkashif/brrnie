@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import FridgeItem
 from django.utils import timezone
-
+    
 class FridgeItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FridgeItem
@@ -21,22 +21,21 @@ class FridgeItemSerializer(serializers.ModelSerializer):
         
         # If no duplicates, create the item
         return super().create(validated_data)  # Call the parent method to create the item if it doesn't exist
-    
+
     def validate_name(self, value):
         if not value:
             raise serializers.ValidationError("Name field cannot be empty.")
         return value
-    
+
     def validate_quantity(self, value):
         if value < 0:
             raise serializers.ValidationError("Quantity cannot be negative.")
         if value == 0:
             raise serializers.ValidationError("Quantity cannot be zero.")
-    
+
     def validate_expiration_date(self, value):
         if not value:
             raise serializers.ValidationError("The 'expiration_date' cannot be empty.")
         if value <= timezone.now().date():  # Check if the expiration date is in the future
             raise serializers.ValidationError("The 'expiration_date' must be a future date.")
         return value
-    
