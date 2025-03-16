@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 CATEGORY_CHOICES = [
+    ('PL', 'Please select a category (Required)'), # Placeholder for selection
     ('PR', 'Produce'),    # Fruits and vegetables
     ('GR', 'Grains'),     # Bread, rice, pasta, etc.
     ('DR', 'Dairy'),      # Milk, cheese, yogurt, etc.
@@ -18,7 +19,7 @@ class FridgeItem(models.Model):
     name = models.CharField(max_length=255)
     quantity = models.IntegerField()
     expiration_date = models.DateField()
-    category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='OT')   # default to 'Other'
+    category = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default='PL')   # default to 'Please Select'
     date_added = models.DateTimeField(default=timezone.now)
     is_expired = models.BooleanField(default=False)
     notes = models.TextField(blank=True)
