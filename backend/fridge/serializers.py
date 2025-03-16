@@ -66,13 +66,14 @@ class FridgeItemSerializer(serializers.ModelSerializer):
         
         # If no duplicates, create the item
         return super().create(validated_data)  # Call the parent method to create the item if it doesn't exist
-    
+
     def validate_name(self, value):
         """Custom validation to enforce max length and include the actual length in the error message."""
         max_length = 255
         if len(value) > max_length:
             raise serializers.ValidationError(f"Name cannot exceed {max_length} characters. It has {len(value)}.")
         return value
+
 
     def validate_quantity(self, value):
         if value < 0:
@@ -90,4 +91,3 @@ class FridgeItemSerializer(serializers.ModelSerializer):
         if value == 'PL':
             raise serializers.ValidationError("*Required")
         return value
-    
