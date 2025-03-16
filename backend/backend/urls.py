@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('fridge.urls')),  # Make sure your app's URLs are included
     path('', RedirectView.as_view(url='/api/inventory/', permanent=True)),  # Redirect root to API
+    path('api/auth/', include('accounts.urls')),
 ]
-
