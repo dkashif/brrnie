@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 CATEGORY_CHOICES = [
     ('PR', 'Produce'),    # Fruits and vegetables
@@ -14,7 +15,19 @@ CATEGORY_CHOICES = [
     ('OT', 'Other'), # Anything else
 ]
 
+class Fridge(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='fridge',
+        primary_key=True
+    )
+
+    def __str__(self):
+        return f"Fridge of {self.user.username}"
+
 class FridgeItem(models.Model):
+    fridge = models.ForeignKey(Fridge, on_delete=models.CASCADE, related_name='items')
     name = models.CharField(max_length=255)
     quantity = models.IntegerField()
     expiration_date = models.DateField()
@@ -37,4 +50,3 @@ class FridgeItem(models.Model):
     class Meta:
         verbose_name = "Fridge Item"
         verbose_name_plural = "Fridge Inventory"
-        
