@@ -4,13 +4,26 @@ import Cookies from 'js-cookie';
 import { useNavigate, Link } from 'react-router-dom';
 import './App.css';
 import Button from "./components/Button"; // Import the button component
-
+export const refreshAccessToken = async () => {
+  try {
+    const refreshToken = Cookies.get('refresh_token');
+    const response = await axios.post('http://localhost:8000/api/auth/token/refresh/', {
+      refresh: refreshToken,
+    });
+    const { access } = response.data;
+    Cookies.set('access_token', access, { expires: 1 }); // Update the access token
+    return access;
+  } catch (error) {
+    console.error('Failed to refresh access token');
+    return null;
+  }
+};
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -26,6 +39,7 @@ function Login() {
       setError('Invalid username or password');
     }
   };
+  
 
   return (
     <div>

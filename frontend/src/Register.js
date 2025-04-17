@@ -17,6 +17,7 @@ function Register() {
       const response = await axios.post('http://localhost:8000/api/auth/register/', {
         username,
         password,
+        password2: password, // Include password2 for validation
       });
       const { access, refresh } = response.data;
       Cookies.set('access_token', access, { expires: 1 }); // Store access token in cookies
