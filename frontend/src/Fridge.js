@@ -20,6 +20,11 @@ function Fridge() {
   const [petText, setPetText] = useState('');
   const [showPetConfirm, setShowPetConfirm] = useState(false);
   const [petHovered, setPetHovered] = useState(false);
+  const logout = () => {
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
+    window.location.href = '/'; // or use navigate('/') if using react-router
+  };
 
   useEffect(() => {
     if (fridgeOpen) {
@@ -81,6 +86,8 @@ if (!fridgeOpen) {
   return (
     <div className="fridge-closed-container">
       <Navbar />
+      <div className="fridge-open-container">
+      <Navbar logout={logout} />  
       <img
         src={fridgyImg}
         alt="Fridge"
@@ -93,6 +100,7 @@ if (!fridgeOpen) {
         className="pet-image pet-left"
       />
       <div className="pet-bubble pet-bubble-closed">{petText || "Tap the fridge to open me!"}</div>
+    </div>
     </div>
   );
 }
