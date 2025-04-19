@@ -44,14 +44,15 @@ body{
 .logout-btn {
     background: none;
     border: none;
-    color: inherit;
-    font: inherit;
-    padding: 0;
-    margin: 0;
+    color: aliceblue;
+    font-family: cursive;
+    font-size: 1rem;
+    padding: 5px;
     cursor: pointer;
-    text-decoration: none;
-    display: inline;
+    display: block;
+    margin-left: 0;
 }
+
 .logout-btn:hover {
     text-decoration: underline;
     color: #61dafb;
