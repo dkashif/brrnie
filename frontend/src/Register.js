@@ -14,15 +14,12 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/register/', {
+      await axios.post('http://localhost:8000/api/auth/register/', {
         username,
         password,
-        password2: password, // Include password2 for validation
+        password2: password,
       });
-      const { access, refresh } = response.data;
-      Cookies.set('access_token', access, { expires: 1 }); // Store access token in cookies
-      Cookies.set('refresh_token', refresh, { expires: 7 }); // Store refresh token in cookies
-      navigate('/fridge'); // Redirect to the fridge page
+      navigate('/'); // Redirect to login page after registration
     } catch (error) {
       setError('Registration failed');
     }
