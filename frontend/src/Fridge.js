@@ -40,12 +40,14 @@ function Fridge() {
     const { name, value } = e.target;
     setNewItem((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === "quantity" ? parseInt(value) : value,
     }));
   };
+  
 
   const handleAddItem = async (e) => {
     e.preventDefault();
+    console.log('New Item:', newItem); // Log the new item data
     try {
       let accessToken = Cookies.get('access_token');
       if (!accessToken) {
@@ -59,6 +61,7 @@ function Fridge() {
       setItems((prev) => [...prev, response.data]); // Add the new item to the list
       setNewItem({ name: '', quantity: '', expiration_date: '', category: 'OT' }); // Reset the form
     } catch (error) {
+      console.error('Error adding item:', error.response?.data || error.message);
       setError(error.response?.data?.detail || 'Failed to add item');
     }
   };
