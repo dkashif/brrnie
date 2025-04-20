@@ -42,7 +42,8 @@ function Login() {
   
 
   return (
-    <div>
+    <div className="login-bg">
+    <div className="login-card">
       <p className="brrnie-title">Brrnie</p>
       <form onSubmit={handleLogin}>
         <div>
@@ -63,9 +64,10 @@ function Login() {
         </div>
         <Button type="submit">Login</Button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="login-error">{error}</p>}
       <p>Don't have an account? <Link to="/register">Register here</Link></p>
     </div>
+  </div>
   );
 }
 
