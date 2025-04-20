@@ -28,7 +28,7 @@ class Fridge(models.Model):
         return f"Fridge of {self.user.username}"
 
 class FridgeItem(models.Model):
-    fridge = models.ForeignKey(Fridge, on_delete=models.CASCADE, related_name='items')
+    fridge = models.ForeignKey(Fridge, on_delete=models.CASCADE, related_name='items', null=True)
     name = models.CharField(max_length=255)
     quantity = models.IntegerField()
     expiration_date = models.DateField()

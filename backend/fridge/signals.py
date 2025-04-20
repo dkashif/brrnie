@@ -3,6 +3,9 @@ from django.dispatch import receiver
 from django.contrib.auth import get_user_model
 from .models import Fridge
 
+from django.contrib.auth.signals import user_logged_in
+from .tasks import update_expiration_status
+
 User = get_user_model()
 
 @receiver(post_save, sender=User)
