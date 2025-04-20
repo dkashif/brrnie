@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from "./components/Navbar";
-import Button from "./components/Button"; // Import the button component
-import fridgy from "./fridgy2.png";
 import Fridge from './Fridge';
+import Login from './Login'; // Import the Login component
+import Register from './Register'; // Import the Register component
 
 function App() {
   return (
@@ -14,18 +14,12 @@ function App() {
           <div className="navbar">
             <Navbar />
           </div>
-          <p className="brrnie-title">Brrnie</p>
-          <div className="fridge">
-            <a href="Fridge"><img src={fridgy} alt="fridge" className="fridge-image" /></a>
-          </div>
-          <div>
-            <Button onClick={() => alert("Button clicked!")}>Open Fridge</Button>
-          </div>
-          More shit incoming
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/fridge" element={<Fridge />} />
+          </Routes>
         </header>
-        <Routes>
-          <Route path="/fridge" element={<Fridge />} />
-        </Routes>
       </div>
     </Router>
   );
