@@ -199,8 +199,9 @@
 }
 
 .login-card input[type="text"],
-.login-card input[type="password"] {
-  color: #222; /* Add this line */
+.login-card input[type="password"],
+.login-card input[type="email"] {
+  color: #222;
   padding: 0.7rem 1rem;
   border-radius: 8px;
   border: 1px solid #cfd8dc;
