@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data.pop("password2")  # Remove password2 as it's only for validation
         user = User.objects.create_user(
             username=validated_data["email"],  # Treat email as email"],  # Treat email as username
-            email=validated_data["email
+            email=validated_data["email"],
             email=validated_data["email"],  # Store email as is
              # Store email as is
             password=validated_data["password"],
