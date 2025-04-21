@@ -17,13 +17,13 @@ class UserProfile(models.Model):
     )
 
     receive_expiration_reminders = models.BooleanField(
-        default=False,
+        default=True,
         help_text="Choose whether to receive reminders when items are close to expiring"
     )
 
     days_before_expiration = models.IntegerField(
         choices=DAYS_BEFORE_CHOICES,
-        default=3,
+        default=1,
         help_text="How many days before expiration would you like to be notified?"
     )
 
