@@ -38,14 +38,126 @@
     transform: rotate(360deg);
   }
 }
+/* Fridge image zoom on hover */
 .fridge-image {
-  width: 200px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  transition: transform 0.3s ease-in-out; /* Smooth transition */
+  width: 300px;
+  transition: transform 0.3s cubic-bezier(.25,.8,.25,1);
+  cursor: pointer;
+  margin-top: 40px;
+}
+.fridge-image:hover {
+  transform: scale(1.15) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-.fridge-image:hover {
-  transform: scale(1.5); /* Scale up on hover */
+/* Pet image and bubble */
+/* ...existing code... */
+
+.pet-image {
+  width: 120px;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  z-index: 2;
+  transition: transform 0.2s;
+}
+.pet-image.pet-hovered {
+  transform: scale(1.1) rotate(-3deg);
+}
+
+.pet-bubble {
+  position: absolute;
+  z-index: 3;
+  background: #fff;
+  color: #333;
+  padding: 12px 18px;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 1.1rem;
+  min-width: 120px;
+  max-width: 220px;
+  pointer-events: auto;
+}
+.pet-bubble-closed {
+  bottom: 140px;
+  left: 170px;
+}
+.pet-bubble-open {
+  bottom: 200px; /* Move up so it doesn't block form */
+  left: 170px;
+}
+.pet-bubble-confirm {
+  bottom: 200px;
+  left: 170px;
+  background: #ffe;
+  color: #222;
+  border: 2px solid #db4747;
+  min-width: 180px;
+  max-width: 260px;
+  text-align: center;
+}
+
+.pet-confirm-btn {
+  margin-top: 10px;
+  background: #db4747;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.pet-confirm-btn:hover {
+  background: #b92c2c;
+}
+/* ...existing code... */
+
+.pet-image.pet-left {
+  left: 40px;
+  bottom: 40px;
+  position: absolute;
+}
+.pet-image.pet-right {
+  right: 40px;
+  bottom: 40px;
+  left: auto;
+  position: absolute;
+}
+
+.pet-bubble.pet-bubble-right {
+  left: auto;
+  right: 0;
+  bottom: 100px;
+  transform: translateX(120%); /* Move bubble to the right of the pet */
+  min-width: 180px;
+  max-width: 260px;
+}
+
+/* Layout containers */
+.fridge-closed-container, .fridge-open-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.close-fridge-btn {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  background: transparent;
+  color: #db4747;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
+}
+.close-fridge-btn:hover {
+  background: transparent;
 }
 .brrnie-title {
   font-family: 'Handjet';
@@ -53,3 +165,71 @@
   color: rgb(49, 49, 50);
 }
 
+.login-bg {
+  min-height: 100vh;
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: #fff;
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  min-width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Handjet';
+}
+
+.login-card form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.login-card label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.login-card input[type="text"],
+.login-card input[type="password"],
+.login-card input[type="email"] {
+  color: #222;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #cfd8dc;
+  font-size: 1rem;
+  background: #f7fafc;
+  transition: border 0.2s;
+}
+
+.login-card input:focus {
+  border: 1.5px solid #61dafb;
+  outline: none;
+}
+
+.login-error {
+  color: #db4747;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  background: #ffeaea;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+
+.login-card a {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-card a:hover {
+  text-decoration: underline;
+}

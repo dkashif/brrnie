@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 User = get_user_model()
 
+
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)
 
@@ -11,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("email", "password", "password2")  # Only include email and password
         extra_kwargs = {
             "password": {"write_only": True},
-            "email": {"required": True},
+            "email": {"required": True},  # Do not add 'unique' here
         }
 
     def validate(self, data):
@@ -24,6 +25,6 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(
             username=validated_data["email"],  # Treat email as username
             email=validated_data["email"],  # Store email as is
-            password=validated_data["password"]
+            password=validated_data["password"],
         )
         return user
