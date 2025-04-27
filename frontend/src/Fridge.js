@@ -20,10 +20,11 @@ function Fridge() {
   const [petText, setPetText] = useState('');
   const [showPetConfirm, setShowPetConfirm] = useState(false);
   const [petHovered, setPetHovered] = useState(false);
+
   const logout = () => {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
-    window.location.href = '/'; // or use navigate('/') if using react-router
+    window.location.href = '/';
   };
 
   useEffect(() => {
@@ -78,51 +79,67 @@ function Fridge() {
     }
   };
 
-  // UI for closed fridge
-  // ...existing code...
+  const handleDeleteItem = async (itemId) => {
+    try {
+      let accessToken = Cookies.get('access_token');
+      if (!accessToken) {
+        accessToken = await refreshAccessToken();
+      }
+      await axios.delete(`http://localhost:8000/api/inventory/${itemId}/`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setItems((prev) => prev.filter((item) => item.id !== itemId));
+    } catch (error) {
+      setError('Failed to delete item');
+    }
+  };
 
-// UI for closed fridge
-if (!fridgeOpen) {
+  // UI for closed fridge
+  if (!fridgeOpen) {
+    return (
+      <div className="fridge-closed-container">
+        <Navbar />
+        <div className="fridge-open-container">
+          <Navbar logout={logout} />
+          <img
+            src={fridgyImg}
+            alt="Fridge"
+            className="fridge-image"
+            onClick={() => setFridgeOpen(true)}
+          />
+          <img
+            src={petImg}
+            alt="Pet"
+            className="pet-image pet-left"
+          />
+          <div className="pet-bubble pet-bubble-closed pet-bubble-left">
+            {petText || "Tap the fridge to open me!"}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // UI for open fridge
   return (
-    <div className="fridge-closed-container">
+    <div className="fridge-open-container">
       <Navbar />
-      <div className="fridge-open-container">
-      <Navbar logout={logout} />  
-      <img
-        src={fridgyImg}
-        alt="Fridge"
-        className="fridge-image"
-        onClick={() => setFridgeOpen(true)}
-      />
+      <button className="close-fridge-btn" onClick={() => setFridgeOpen(false)}>
+        Close Fridge
+      </button>
       <img
         src={petImg}
         alt="Pet"
-        className="pet-image pet-left"
+        className={`pet-image pet-left ${petHovered ? "pet-hovered" : ""}`}
+        onMouseEnter={() => setPetHovered(true)}
+        onMouseLeave={() => setPetHovered(false)}
+        onClick={() => setShowPetConfirm(true)}
+        style={{ cursor: 'pointer' }}
       />
-      <div className="pet-bubble pet-bubble-closed">{petText || "Tap the fridge to open me!"}</div>
-    </div>
-    </div>
-  );
-}
-
-// UI for open fridge
-return (
-  <div className="fridge-open-container">
-    <Navbar />
-    <button className="close-fridge-btn" onClick={() => setFridgeOpen(false)}>
-      Close Fridge
-    </button>
-    <img
-      src={petImg}
-      alt="Pet"
-      className={`pet-image pet-right ${petHovered ? "pet-hovered" : ""}`}
-      onMouseEnter={() => setPetHovered(true)}
-      onMouseLeave={() => setPetHovered(false)}
-      onClick={() => setShowPetConfirm(true)}
-      style={{ cursor: 'pointer' }}
-    />
     {showPetConfirm ? (
-      <div className="pet-bubble pet-bubble-confirm pet-bubble-right">
+      <div className="pet-bubble pet-bubble-confirm pet-bubble-left">
         Do you wanna close the fridge?
         <br />
         <button
@@ -143,18 +160,56 @@ return (
         </button>
       </div>
     ) : (
-      <div className="pet-bubble pet-bubble-open pet-bubble-right">{petText}</div>
+      <div className="pet-bubble pet-bubble-open pet-bubble-left">{petText}</div>
     )}
 
       <p className="brrnie-title">Fridge</p>
       {error && <p>{error}</p>}
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            {item.name} - {item.quantity} - {item.expiration_date} - {item.category}
-          </li>
-        ))}
-      </ul>
+
+      {/* Scrollable inventory window with delete buttons */}
+      <div style={{
+        maxHeight: '300px',
+        overflowY: 'auto',
+        margin: '20px 0',
+        border: '1px solid #ccc',
+        borderRadius: '8px',
+        padding: '10px',
+        background: '#fff',
+        width: '100%',
+        maxWidth: '500px'
+      }}>
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+          {items.map((item) => (
+            <li key={item.id} style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '10px',
+              borderBottom: '1px solid #eee',
+              paddingBottom: '6px'
+            }}>
+              <span>
+                {item.name} - {item.quantity} - {item.expiration_date} - {item.category}
+              </span>
+              <button
+                style={{
+                  marginLeft: '16px',
+                  background: '#db4747',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  padding: '4px 10px',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleDeleteItem(item.id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <form onSubmit={handleAddItem}>
         <h3>Add New Item</h3>
         <div>

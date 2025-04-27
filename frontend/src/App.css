@@ -3,7 +3,10 @@
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
+body, .App, .fridge-open-container, .fridge-closed-container {
+  color: #222 !important;
+  background: transparent;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -112,11 +115,13 @@
   background: #b92c2c;
 }
 /* ...existing code... */
-
+/* Move pet image to left middle */
 .pet-image.pet-left {
-  left: 40px;
-  bottom: 40px;
-  position: absolute;
+  position: fixed;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
 }
 .pet-image.pet-right {
   right: 40px;
@@ -125,11 +130,11 @@
   position: absolute;
 }
 
-.pet-bubble.pet-bubble-right {
-  left: auto;
-  right: 0;
-  bottom: 100px;
-  transform: translateX(120%); /* Move bubble to the right of the pet */
+.pet-bubble.pet-bubble-left {
+  position: fixed;
+  left: 170px;
+  top: 50%;
+  transform: translateY(-50%);
   min-width: 180px;
   max-width: 260px;
 }
