@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import { refreshAccessToken } from './Login.js';
 import fridgyImg from './fridgy2.png';
 import petImg from './image0.png';
-
+import plusImg from './add.png';
 function Fridge() {
   const [items, setItems] = useState([]);
   const [error, setError] = useState('');
@@ -20,7 +20,8 @@ function Fridge() {
   const [petText, setPetText] = useState('');
   const [showPetConfirm, setShowPetConfirm] = useState(false);
   const [petHovered, setPetHovered] = useState(false);
-
+  const [petPressed, setPetPressed] = useState(false);
+  
   const logout = () => {
     Cookies.remove('access_token');
     Cookies.remove('refresh_token');
@@ -109,10 +110,17 @@ function Fridge() {
             className="fridge-image"
             onClick={() => setFridgeOpen(true)}
           />
-          <img
+                    <img
             src={petImg}
             alt="Pet"
-            className="pet-image pet-left"
+            className={`pet-image pet-left ${petHovered ? "pet-hovered" : ""} ${petPressed ? "pet-pressed" : ""}`}
+            onMouseEnter={() => setPetHovered(true)}
+            onMouseLeave={() => setPetHovered(false)}
+            onMouseDown={() => setPetPressed(true)}
+            onMouseUp={() => setPetPressed(false)}
+            onMouseOut={() => setPetPressed(false)}
+            onClick={() => setShowPetConfirm(true)}
+            style={{ cursor: 'pointer' }}
           />
           <div className="pet-bubble pet-bubble-closed pet-bubble-left">
             {petText || "Tap the fridge to open me!"}
@@ -129,15 +137,35 @@ function Fridge() {
       <button className="close-fridge-btn" onClick={() => setFridgeOpen(false)}>
         Close Fridge
       </button>
+      <span style={{
+        position: 'fixed',
+        left: '170px',
+        top: 'calc(50% - 60px)',
+        background: '#fffbe6',
+        color: '#333',
+        padding: '6px 14px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+        fontSize: '1rem',
+        zIndex: 20,
+        pointerEvents: 'none',
+        opacity: petHovered ? 1 : 0,
+        transition: 'opacity 0.2s'
+}}>
+  Click me!
+</span>
       <img
-        src={petImg}
-        alt="Pet"
-        className={`pet-image pet-left ${petHovered ? "pet-hovered" : ""}`}
-        onMouseEnter={() => setPetHovered(true)}
-        onMouseLeave={() => setPetHovered(false)}
-        onClick={() => setShowPetConfirm(true)}
-        style={{ cursor: 'pointer' }}
-      />
+  src={petImg}
+  alt="Pet"
+  className={`pet-image pet-left ${petHovered ? "pet-hovered" : ""} ${petPressed ? "pet-pressed" : ""}`}
+  onMouseEnter={() => setPetHovered(true)}
+  onMouseLeave={() => setPetHovered(false)}
+  onMouseDown={() => setPetPressed(true)}
+  onMouseUp={() => setPetPressed(false)}
+  onMouseOut={() => setPetPressed(false)}
+  onClick={() => setShowPetConfirm(true)}
+  style={{ cursor: 'pointer' }}
+/>
     {showPetConfirm ? (
       <div className="pet-bubble pet-bubble-confirm pet-bubble-left">
         Do you wanna close the fridge?
@@ -262,7 +290,13 @@ function Fridge() {
             <option value="OT">Other</option>
           </select>
         </div>
-        <button type="submit">Add Item</button>
+        <button type="submit" className="plus-btn" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+          <img
+            src={plusImg}
+            alt="Add"
+            style={{ width: '36px', height: '36px', verticalAlign: 'middle' }}
+          />
+</button>
       </form>
     </div>
   );

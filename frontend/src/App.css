@@ -57,12 +57,18 @@ body, .App, .fridge-open-container, .fridge-closed-container {
 /* ...existing code... */
 
 .pet-image {
-  width: 120px;
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  z-index: 2;
-  transition: transform 0.2s;
+  width: 120px;   /* or whatever size fits your UI */
+  height: auto;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0;
+  box-shadow: none;
+  outline: none;
+  display: block;
+  pointer-events: auto;
+  /* Optional: Add a border-radius if your pet is round */
+  border-radius:70%;
 }
 .pet-image.pet-hovered {
   transform: scale(1.1) rotate(-3deg);
@@ -138,7 +144,42 @@ body, .App, .fridge-open-container, .fridge-closed-container {
   min-width: 180px;
   max-width: 260px;
 }
+@keyframes pet-bounce {
+  0%   { transform: translateY(-50%) scale(1) rotate(0deg);}
+  20%  { transform: translateY(-60%) scale(1.08) rotate(-3deg);}
+  40%  { transform: translateY(-45%) scale(1.12) rotate(3deg);}
+  60%  { transform: translateY(-55%) scale(1.08) rotate(-2deg);}
+  80%  { transform: translateY(-50%) scale(1.05) rotate(2deg);}
+  100% { transform: translateY(-50%) scale(1) rotate(0deg);}
+}
 
+.pet-image.pet-left.pet-hovered {
+  animation: pet-bounce 0.7s;
+  filter: brightness(1.15) drop-shadow(0 0 8px #ffe066);
+  cursor: pointer;
+}
+.pet-image.pet-left {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: box-shadow 0.2s, filter 0.2s;
+  cursor: pointer;
+}
+.pet-image.pet-pressed {
+  filter: brightness(0.95) drop-shadow(0 0 4px #db4747);
+  transform: translateY(-50%) scale(0.95) !important;
+}
+@keyframes pet-idle-bounce {
+  0%   { transform: translateY(-50%) scale(1) rotate(0deg);}
+  50%  { transform: translateY(-48%) scale(1.04) rotate(-2deg);}
+  100% { transform: translateY(-50%) scale(1) rotate(0deg);}
+}
+
+.pet-image.pet-left {
+  animation: pet-idle-bounce 2.5s infinite;
+}
+.pet-image.pet-left.pet-hovered,
+.pet-image.pet-left.pet-pressed {
+  animation: none !important;
+}
 /* Layout containers */
 .fridge-closed-container, .fridge-open-container {
   position: relative;
@@ -168,6 +209,7 @@ body, .App, .fridge-open-container, .fridge-closed-container {
   font-family: 'Handjet';
   font-size: 4rem;
   color: rgb(49, 49, 50);
+  margin-top: 90px; /* Add this line, adjust as needed */
 }
 
 .login-bg {
@@ -237,4 +279,15 @@ body, .App, .fridge-open-container, .fridge-closed-container {
 
 .login-card a:hover {
   text-decoration: underline;
+}
+
+.plus-btn img:hover {
+  filter: brightness(1.2) drop-shadow(0 0 4px #61dafb);
+  transform: scale(1.15) rotate(10deg);
+  transition: 0.2s;
+}
+
+.plus-btn img {
+  width: 60px;
+  height: 60px;
 }
