@@ -68,7 +68,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://brrnie10-dkashifs-projects.vercel.app/" "http://localhost:3000",
+    "https://brrnie-1-0-frontend.onrender.com/",
 ]
 
 ROOT_URLCONF = "backend.urls"
