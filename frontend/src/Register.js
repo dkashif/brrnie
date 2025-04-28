@@ -11,18 +11,29 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('https://brrnie-1-0.onrender.com/api/auth/register/', {
-        email,
-        password,
-        password2: password,
-      });
-      navigate('/'); // Redirect to login page after registration
-    } catch (error) {
+  e.preventDefault();
+  try {
+    const response = await axios.post('https://brrnie-1-0.onrender.com/api/auth/register/', {
+      email,
+      password,
+      password2: password,
+    });
+    console.log('Register response:', response);
+    if (response.status === 201) {
+      navigate('/'); // Registration successful
+    } else {
       setError('Registration failed');
     }
-  };
+  } catch (error) {
+    if (error.response) {
+      console.error('Error response:', error.response);
+      setError(error.response.data?.detail || 'Registration failed');
+    } else {
+      console.error('Error:', error);
+      setError('Registration failed');
+    }
+  }
+};
 
   return (
     <div className="login-bg">
