@@ -68,7 +68,7 @@ function Fridge() {
       if (!accessToken) {
         accessToken = await refreshAccessToken();
       }
-      const response = await axios.post('http://localhost:8000/api/inventory/', newItem, {
+      const response = await axios.post('https://brrnie-1-0.onrender.com/api/inventory/', newItem, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -86,7 +86,7 @@ function Fridge() {
       if (!accessToken) {
         accessToken = await refreshAccessToken();
       }
-      await axios.delete(`http://localhost:8000/api/inventory/${itemId}/`, {
+      await axios.delete(`https://brrnie-1-0.onrender.com/api/inventory/${itemId}/`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -7,7 +7,7 @@ import Button from "./components/Button"; // Import the button component
 export const refreshAccessToken = async () => {
   try {
     const refreshToken = Cookies.get('refresh_token');
-    const response = await axios.post('http://localhost:8000/api/auth/token/refresh/', {
+    const response = await axios.post('https://brrnie-1-0.onrender.com/api/auth/token/refresh/', {
       refresh: refreshToken,
     });
     const { access } = response.data;
@@ -27,7 +27,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/login/', {
+      const response = await axios.post('https://brrnie-1-0.onrender.com/api/auth/login/', {
         username,
         password,
       });

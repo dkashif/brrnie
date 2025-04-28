@@ -13,7 +13,7 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/auth/register/', {
+      await axios.post('https://brrnie-1-0.onrender.com/api/auth/register/', {
         email,
         password,
         password2: password,
