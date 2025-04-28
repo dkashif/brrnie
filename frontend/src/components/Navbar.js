@@ -6,12 +6,7 @@ export default function Navbar({ logout }) {
                 Brrnie
             </a>
             <ul>
-                <li>
-                    <a href="/home">Home</a>
-                </li>
-                <li>
-                    <a href="/inventory">Inventory</a>
-                </li>
+                
                 {logout && (
     <li>
         <a

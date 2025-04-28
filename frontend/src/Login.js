@@ -46,20 +46,22 @@ function Login() {
     <div className="login-card">
       <p className="brrnie-title">Brrnie</p>
       <form onSubmit={handleLogin}>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <label>Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
         </div>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <Button type="submit">Login</Button>
