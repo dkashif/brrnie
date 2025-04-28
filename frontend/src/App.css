@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Handjet:wght@100..900&family=Jua&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
 .App {
   text-align: center;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: 'Sour Gummy', cursive;
 }
 body, .App, .fridge-open-container, .fridge-closed-container {
   color: #222 !important;
