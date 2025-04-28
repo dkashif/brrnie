@@ -49,7 +49,7 @@ function Fridge() {
       };
       fetchData();
     } else {
-      setPetText("Bye! Closing the fridge... 💤");
+      setPetText("Hello! Fridge is currently closed... 💤");
     }
   }, [fridgeOpen]);
 
